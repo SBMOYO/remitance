@@ -31,3 +31,12 @@ class CustomUser(AbstractBaseUser):
     
     def has_module_perms(self, app_label):
         return True
+    
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    account_balance = models.IntegerField(default=0)
+    profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.surname}"
